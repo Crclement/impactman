@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impactman - Arcade Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #ffcc00, #ff6600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: #888;
+      margin-top: 0.5rem;
+    }
+
+    .card {
+      background: #151515;
+      border: 1px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #1a1a1a;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .card-header h2 {
+      font-size: 1.1rem;
+      color: #ffcc00;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .game-preview {
+      grid-column: 1 / -1;
+    }
+
+    .game-preview iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .schematic {
+      background: #0d1117;
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+
+    .schematic svg {
+      width: 100%;
+      height: auto;
+      min-width: 400px;
+    }
+
+    .pin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .pin-table th,
+    .pin-table td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+
+    .pin-table th {
+      color: #ffcc00;
+      font-weight: 600;
+    }
+
+    .pin-table td:first-child {
+      font-family: monospace;
+      color: #4ade80;
+    }
+
+    .component-list {
+      list-style: none;
+    }
+
+    .component-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .component-list li:last-child {
+      border-bottom: none;
+    }
+
+    .component-list .name {
+      color: #fff;
+    }
+
+    .component-list .desc {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .wire-color {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .wire-red { background: #ef4444; }
+    .wire-black { background: #1a1a1a; border: 1px solid #444; }
+    .wire-yellow { background: #facc15; }
+    .wire-green { background: #22c55e; }
+    .wire-blue { background: #3b82f6; }
+    .wire-white { background: #fff; }
+    .wire-orange { background: #f97316; }
+    .wire-purple { background: #a855f7; }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <header>
+      <h1>IMPACTMAN</h1>
+      <p>Arcade1Up Raspberry Pi 5 Conversion Dashboard</p>
+    </header>
+
+    <!-- Game Preview -->
+    <div class="card game-preview">
+      <div class="card-header">
+        <h2>Game Preview</h2>
+      </div>
+      <div class="card-body">
+        <iframe src="https://dev.impactarcade.com/games/impactman" allow="fullscreen"></iframe>
+      </div>
+    </div>
+
+    <!-- GPIO Wiring Schematic -->
+    <div class="card">
+      <div class="card-header">
+        <h2>GPIO Wiring - Joystick & Button</h2>
+      </div>
+      <div class="card-body">
+        <div class="schematic">
+          <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pi GPIO Header -->
+            <rect x="280" y="20" width="120" height="280" rx="8" fill="#1a472a" stroke="#22c55e" stroke-width="2"/>
+            <text x="340" y="45" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Raspberry Pi 5</text>
+            <text x="340" y="60" text-anchor="middle" fill="#888" font-size="9">GPIO Header</text>
+
+            <!-- Pin labels on Pi -->
+            <text x="295" y="95" fill="#888" font-size="9">Pin 11</text>
+            <circle cx="310" cy="90" r="6" fill="#22c55e"/>
+            <text x="325" y="95" fill="#4ade80" font-size="8">GPIO17</text>
+
+            <text x="295" y="125" fill="#888" font-size="9">Pin 13</text>
+            <circle cx="310" cy="120" r="6" fill="#3b82f6"/>
+            <text x="325" y="125" fill="#60a5fa" font-size="8">GPIO27</text>
+
+            <text x="295" y="155" fill="#888" font-size="9">Pin 15</text>
+            <circle cx="310" cy="150" r="6" fill="#facc15"/>
+            <text x="325" y="155" fill="#fde047" font-size="8">GPIO22</text>
+
+            <text x="295" y="185" fill="#888" font-size="9">Pin 16</text>
+            <circle cx="310" cy="180" r="6" fill="#f97316"/>
+            <text x="325" y="185" fill="#fb923c" font-size="8">GPIO23</text>
+
+            <text x="295" y="215" fill="#888" font-size="9">Pin 18</text>
+            <circle cx="310" cy="210" r="6" fill="#a855f7"/>
+            <text x="325" y="215" fill="#c084fc" font-size="8">GPIO24</text>
+
+            <text x="295" y="260" fill="#888" font-size="9">Pin 6</text>
+            <circle cx="310" cy="255" r="6" fill="#333" stroke="#666"/>
+            <text x="325" y="260" fill="#888" font-size="8">GND</text>
+
+            <!-- Joystick -->
+            <rect x="30" y="60" width="100" height="100" rx="8" fill="#252525" stroke="#444"/>
+            <text x="80" y="85" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">JOYSTICK</text>
+            <circle cx="80" cy="120" r="20" fill="#333" stroke="#555" stroke-width="2"/>
+            <circle cx="80" cy="120" r="8" fill="#444"/>
+
+            <!-- Joystick wires -->
+            <line x1="130" y1="90" x2="310" y2="90" stroke="#22c55e" stroke-width="2"/>
+            <text x="200" y="85" fill="#22c55e" font-size="9">UP</text>
+
+            <line x1="130" y1="110" x2="250" y2="110" stroke="#3b82f6" stroke-width="2"/>
+            <line x1="250" y1="110" x2="250" y2="120" stroke="#3b82f6" stroke-width="2"/>
+            <line x1="250" y1="120" x2="310" y2="120" stroke="#3b82f6" stroke-width="2"/>
+            <text x="200" y="105" fill="#3b82f6" font-size="9">DOWN</text>
+
+            <line x1="130" y1="130" x2="240" y2="130" stroke="#facc15" stroke-width="2"/>
+            <line x1="240" y1="130" x2="240" y2="150" stroke="#facc15" stroke-width="2"/>
+            <line x1="240" y1="150" x2="310" y2="150" stroke="#facc15" stroke-width="2"/>
+            <text x="200" y="145" fill="#facc15" font-size="9">LEFT</text>
+
+            <line x1="130" y1="150" x2="230" y2="150" stroke="#f97316" stroke-width="2"/>
+            <line x1="230" y1="150" x2="230" y2="180" stroke="#f97316" stroke-width="2"/>
+            <line x1="230" y1="180" x2="310" y2="180" stroke="#f97316" stroke-width="2"/>
+            <text x="175" y="168" fill="#f97316" font-size="9">RIGHT</text>
+
+            <!-- Button -->
+            <rect x="30" y="200" width="100" height="60" rx="8" fill="#252525" stroke="#444"/>
+            <text x="80" y="225" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">BUTTON</text>
+            <circle cx="80" cy="245" r="12" fill="#a855f7" stroke="#c084fc" stroke-width="2"/>
+
+            <!-- Button wire -->
+            <line x1="130" y1="230" x2="220" y2="230" stroke="#a855f7" stroke-width="2"/>
+            <line x1="220" y1="230" x2="220" y2="210" stroke="#a855f7" stroke-width="2"/>
+            <line x1="220" y1="210" x2="310" y2="210" stroke="#a855f7" stroke-width="2"/>
+            <text x="160" y="225" fill="#a855f7" font-size="9">ENTER</text>
+
+            <!-- Ground wire -->
+            <line x1="80" y1="160" x2="80" y2="180" stroke="#666" stroke-width="2"/>
+            <line x1="80" y1="180" x2="150" y2="180" stroke="#666" stroke-width="2"/>
+            <line x1="150" y1="180" x2="150" y2="280" stroke="#666" stroke-width="2"/>
+            <line x1="80" y1="260" x2="150" y2="260" stroke="#666" stroke-width="2"/>
+            <line x1="150" y1="280" x2="260" y2="280" stroke="#666" stroke-width="2"/>
+            <line x1="260" y1="280" x2="260" y2="255" stroke="#666" stroke-width="2"/>
+            <line x1="260" y1="255" x2="310" y2="255" stroke="#666" stroke-width="2"/>
+            <text x="180" y="295" fill="#888" font-size="9">GND (common)</text>
+          </svg>
+        </div>
+
+        <table class="pin-table">
+          <tr><th>GPIO Pin</th><th>Physical Pin</th><th>Function</th></tr>
+          <tr><td>GPIO 17</td><td>Pin 11</td><td><span class="wire-color wire-green"></span>Joystick UP</td></tr>
+          <tr><td>GPIO 27</td><td>Pin 13</td><td><span class="wire-color wire-blue"></span>Joystick DOWN</td></tr>
+          <tr><td>GPIO 22</td><td>Pin 15</td><td><span class="wire-color wire-yellow"></span>Joystick LEFT</td></tr>
+          <tr><td>GPIO 23</td><td>Pin 16</td><td><span class="wire-color wire-orange"></span>Joystick RIGHT</td></tr>
+          <tr><td>GPIO 24</td><td>Pin 18</td><td><span class="wire-color wire-purple"></span>Button (Enter)</td></tr>
+          <tr><td>GND</td><td>Pin 6, 9, 14, 20</td><td><span class="wire-color wire-black"></span>Common Ground</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Display Wiring -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Display Connection</h2>
+      </div>
+      <div class="card-body">
+        <div class="schematic">
+          <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pi -->
+            <rect x="20" y="60" width="90" height="80" rx="8" fill="#1a472a" stroke="#22c55e" stroke-width="2"/>
+            <text x="65" y="95" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">Pi 5</text>
+            <text x="65" y="115" text-anchor="middle" fill="#888" font-size="9">HDMI</text>
+
+            <!-- HDMI Cable -->
+            <line x1="110" y1="100" x2="160" y2="100" stroke="#3b82f6" stroke-width="4"/>
+            <text x="135" y="90" text-anchor="middle" fill="#60a5fa" font-size="8">HDMI</text>
+
+            <!-- LCD Controller -->
+            <rect x="160" y="50" width="120" height="100" rx="8" fill="#252525" stroke="#f97316" stroke-width="2"/>
+            <text x="220" y="85" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">LCD Controller</text>
+            <text x="220" y="100" text-anchor="middle" fill="#888" font-size="8">Board</text>
+            <text x="220" y="130" text-anchor="middle" fill="#f97316" font-size="7">(Match to monitor S/N)</text>
+
+            <!-- LVDS Cable -->
+            <line x1="280" y1="100" x2="330" y2="100" stroke="#facc15" stroke-width="4"/>
+            <text x="305" y="90" text-anchor="middle" fill="#fde047" font-size="8">LVDS</text>
+
+            <!-- Monitor -->
+            <rect x="330" y="40" width="150" height="120" rx="8" fill="#151515" stroke="#444" stroke-width="2"/>
+            <rect x="345" y="55" width="120" height="80" rx="4" fill="#1a1a1a" stroke="#333"/>
+            <text x="405" y="100" text-anchor="middle" fill="#666" font-size="10">Arcade1Up</text>
+            <text x="405" y="115" text-anchor="middle" fill="#888" font-size="8">17" LCD Panel</text>
+
+            <!-- Power -->
+            <rect x="180" y="160" width="80" height="30" rx="4" fill="#252525" stroke="#ef4444"/>
+            <text x="220" y="180" text-anchor="middle" fill="#ef4444" font-size="9">12V Power</text>
+            <line x1="220" y1="150" x2="220" y2="160" stroke="#ef4444" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <ul class="component-list">
+          <li>
+            <span class="name">LCD Controller Board</span>
+            <span class="desc">Match to Arcade1Up panel S/N</span>
+          </li>
+          <li>
+            <span class="name">Micro HDMI to HDMI</span>
+            <span class="desc">Pi 5 uses micro HDMI</span>
+          </li>
+          <li>
+            <span class="name">12V Power Supply</span>
+            <span class="desc">For LCD controller board</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Audio Wiring -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Audio Connection</h2>
+      </div>
+      <div class="card-body">
+        <div class="schematic">
+          <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pi -->
+            <rect x="20" y="45" width="90" height="60" rx="8" fill="#1a472a" stroke="#22c55e" stroke-width="2"/>
+            <text x="65" y="75" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">Pi 5</text>
+            <text x="65" y="90" text-anchor="middle" fill="#888" font-size="8">3.5mm Jack</text>
+
+            <!-- Audio Cable -->
+            <line x1="110" y1="75" x2="160" y2="75" stroke="#22c55e" stroke-width="3"/>
+            <text x="135" y="65" text-anchor="middle" fill="#4ade80" font-size="8">3.5mm</text>
+
+            <!-- Amp -->
+            <rect x="160" y="40" width="100" height="70" rx="8" fill="#252525" stroke="#a855f7" stroke-width="2"/>
+            <text x="210" y="70" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">Amplifier</text>
+            <text x="210" y="85" text-anchor="middle" fill="#888" font-size="8">PAM8403 or</text>
+            <text x="210" y="97" text-anchor="middle" fill="#888" font-size="8">similar</text>
+
+            <!-- Speaker wires -->
+            <line x1="260" y1="60" x2="320" y2="40" stroke="#ef4444" stroke-width="2"/>
+            <line x1="260" y1="90" x2="320" y2="110" stroke="#ef4444" stroke-width="2"/>
+
+            <!-- Speakers -->
+            <rect x="320" y="20" width="80" height="40" rx="6" fill="#252525" stroke="#444"/>
+            <text x="360" y="45" text-anchor="middle" fill="#fff" font-size="9">Speaker L</text>
+
+            <rect x="320" y="90" width="80" height="40" rx="6" fill="#252525" stroke="#444"/>
+            <text x="360" y="115" text-anchor="middle" fill="#fff" font-size="9">Speaker R</text>
+
+            <!-- Power note -->
+            <text x="210" y="130" text-anchor="middle" fill="#888" font-size="8">5V from Pi USB or separate supply</text>
+          </svg>
+        </div>
+
+        <ul class="component-list">
+          <li>
+            <span class="name">3.5mm Audio Cable</span>
+            <span class="desc">Male to bare wire or RCA</span>
+          </li>
+          <li>
+            <span class="name">PAM8403 Amplifier</span>
+            <span class="desc">~3W per channel, 5V powered</span>
+          </li>
+          <li>
+            <span class="name">Arcade1Up Speakers</span>
+            <span class="desc">Reuse existing cabinet speakers</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Required Components -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Components Checklist</h2>
+      </div>
+      <div class="card-body">
+        <ul class="component-list">
+          <li>
+            <span class="name">Raspberry Pi 5 (4GB+)</span>
+            <span class="desc">Main computer</span>
+          </li>
+          <li>
+            <span class="name">MicroSD Card</span>
+            <span class="desc">Samsung EVO 32GB+</span>
+          </li>
+          <li>
+            <span class="name">Pi 5 Power Supply</span>
+            <span class="desc">27W USB-C (5V 5A)</span>
+          </li>
+          <li>
+            <span class="name">Micro HDMI to HDMI</span>
+            <span class="desc">Video output cable</span>
+          </li>
+          <li>
+            <span class="name">LCD Controller Board</span>
+            <span class="desc">Matches Arcade1Up panel</span>
+          </li>
+          <li>
+            <span class="name">12V Power Supply</span>
+            <span class="desc">For LCD controller</span>
+          </li>
+          <li>
+            <span class="name">PAM8403 Amp Board</span>
+            <span class="desc">Audio amplifier</span>
+          </li>
+          <li>
+            <span class="name">Jumper Wires (F-F)</span>
+            <span class="desc">GPIO connections</span>
+          </li>
+          <li>
+            <span class="name">Screw Terminal Breakout</span>
+            <span class="desc">Optional - easier wiring</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pi Setup Files -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Pi Setup Scripts</h2>
+      </div>
+      <div class="card-body">
+        <p style="color: #888; margin-bottom: 1rem;">Copy these from the <code style="color: #4ade80;">/raspi</code> directory:</p>
+        <ul class="component-list">
+          <li>
+            <span class="name">setup.sh</span>
+            <span class="desc">Full automated setup</span>
+          </li>
+          <li>
+            <span class="name">arcade-gpio.py</span>
+            <span class="desc">GPIO to keyboard mapper</span>
+          </li>
+          <li>
+            <span class="name">kiosk.sh</span>
+            <span class="desc">Kiosk mode launcher</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
