@@ -4,7 +4,7 @@ import './FleetMonitoring.css'
 
 function FleetMonitoring() {
   const [consoles, setConsoles] = useState([])
-  const [stats, setStats] = useState({ online: 0, offline: 0, warning: 0, total: 0 })
+  const [stats, setStats] = useState({ online: 0, offline: 0, warning: 0, playing: 0, total: 0, totalGamesPlayed: 0, topScore: null })
   const [loading, setLoading] = useState(true)
 
   const fetchData = async () => {
@@ -53,6 +53,10 @@ function FleetMonitoring() {
               <div className="stat-label">Online</div>
             </div>
             <div className="stat-card">
+              <div className="stat-value playing">{stats.playing}</div>
+              <div className="stat-label">Playing</div>
+            </div>
+            <div className="stat-card">
               <div className="stat-value offline">{stats.offline}</div>
               <div className="stat-label">Offline</div>
             </div>
@@ -60,9 +64,16 @@ function FleetMonitoring() {
               <div className="stat-value warning">{stats.warning}</div>
               <div className="stat-label">Warning</div>
             </div>
-            <div className="stat-card">
-              <div className="stat-value">{stats.total}</div>
-              <div className="stat-label">Total Units</div>
+            <div className="stat-card highlight">
+              <div className="stat-value games">{stats.totalGamesPlayed?.toLocaleString() || 0}</div>
+              <div className="stat-label">Games Played</div>
+            </div>
+            <div className="stat-card top-score">
+              <div className="stat-value">{stats.topScore?.score?.toLocaleString() || 0}</div>
+              <div className="stat-label">Top Score</div>
+              {stats.topScore && (
+                <div className="stat-sublabel">Console {stats.topScore.consoleName}</div>
+              )}
             </div>
           </div>
 

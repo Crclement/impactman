@@ -1,3 +1,30 @@
+/* Impactman Light Retro Theme - Matched to game */
+:root {
+  --font-headline: 'Kontesa', 'Impact', sans-serif;
+  --font-retro: 'Retro-Land-Mayhem', monospace;
+  --font-body: 'Agrandir', -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-bg-start: #b7dde7;
+  --color-bg-end: #fff;
+  --color-card-start: #f3b3e1;
+  --color-card-end: #fffafc;
+  --color-slider-start: #c7eaf2;
+  --color-slider-end: #86d5e7;
+  --color-border: #16114f;
+  --color-accent: #d9ff69;
+  --color-accent-blue: #4d8bec;
+  --color-pink: #f3b3e1;
+  --color-blue: #86d5e7;
+  --color-blue-light: #c7eaf2;
+  --color-purple: #16114f;
+  --color-purple-mid: #5935b4;
+  --color-text: #16114f;
+  --color-text-light: #5935b4;
+  --color-white: #fffafc;
+  --border-radius: 20px;
+  --border-radius-sm: 12px;
+  --shadow-offset: 4px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +32,12 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #0a0a0a;
-  color: #fff;
+  font-family: var(--font-body);
+  background: linear-gradient(180deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+  background-attachment: fixed;
+  color: var(--color-text);
   min-height: 100vh;
+  font-weight: 500;
 }
 
 #root {
@@ -20,7 +49,6 @@ body {
 
 .dashboard {
   padding: 3rem;
-  max-width: 1800px;
   margin: 0 auto;
 }
 
@@ -33,25 +61,58 @@ body {
 header {
   text-align: center;
   padding: 1rem 0 2rem;
+  position: relative;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  background: var(--color-white);
+  border: 2px solid var(--color-purple);
+  border-radius: var(--border-radius-sm);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-purple);
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--color-purple);
+  transition: all 0.15s;
+  text-transform: uppercase;
+}
+
+.logout-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 var(--color-purple);
+  background: #fde0e6;
 }
 
 header h1 {
-  font-size: 2.5rem;
-  background: linear-gradient(135deg, #ffcc00, #ff6600);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: var(--font-headline);
+  font-size: 3.5rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-shadow:
+    -3px -3px 0 var(--color-purple),
+    3px -3px 0 var(--color-purple),
+    -3px 3px 0 var(--color-purple),
+    3px 3px 0 var(--color-purple),
+    0 6px 0 var(--color-purple-mid);
+  line-height: 1.1;
 }
 
 header p {
-  color: #888;
+  color: var(--color-purple-mid);
   margin-top: 0.5rem;
+  font-weight: 700;
 }
 
 .nav-tabs {
   display: flex;
-  gap: 0.5rem;
-  border-bottom: 1px solid #333;
+  gap: 0.75rem;
+  border-bottom: 3px solid var(--color-purple);
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
@@ -59,25 +120,33 @@ header p {
 
 .nav-tab {
   padding: 0.75rem 1.5rem;
-  background: transparent;
-  border: 1px solid #333;
-  border-radius: 8px;
-  color: #888;
+  background: var(--color-white);
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-purple);
   cursor: pointer;
   font-size: 0.95rem;
-  transition: all 0.2s;
+  font-weight: 700;
+  transition: all 0.15s;
+  box-shadow: 0 8px 0 var(--color-purple);
+  position: relative;
+  top: 0;
+  text-transform: uppercase;
 }
 
 .nav-tab:hover {
-  border-color: #555;
-  color: #fff;
+  background: linear-gradient(128.51deg, var(--color-slider-start), var(--color-slider-end));
+  top: 4px;
+  box-shadow: 0 4px 0 var(--color-purple);
 }
 
 .nav-tab.active {
-  background: #ffcc00;
-  border-color: #ffcc00;
-  color: #000;
-  font-weight: 600;
+  background: var(--color-accent);
+  border-color: var(--color-purple);
+  color: var(--color-purple);
+  font-weight: 800;
+  top: 8px;
+  box-shadow: 0 0 0 var(--color-purple);
 }
 
 .tab-content {
@@ -93,10 +162,11 @@ header p {
 }
 
 .card {
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 12px;
+  background: linear-gradient(180deg, #f3b3e1 -36%, #fffafc 100%);
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius);
   overflow: hidden;
+  box-shadow: 4px 4px 0 var(--color-purple);
 }
 
 .card.full-width {
@@ -104,17 +174,21 @@ header p {
 }
 
 .card-header {
-  background: #1a1a1a;
+  background: var(--color-white);
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 3px solid var(--color-purple);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .card-header h2 {
-  font-size: 1.1rem;
-  color: #ffcc00;
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  color: var(--color-purple);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .card-body {
@@ -122,19 +196,22 @@ header p {
 }
 
 .refresh-btn {
-  background: #252525;
-  border: 1px solid #444;
-  color: #888;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
+  background: var(--color-accent);
+  border: 3px solid var(--color-purple);
+  color: var(--color-purple);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  font-size: 0.8rem;
-  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.15s;
+  box-shadow: 0 4px 0 var(--color-purple);
+  text-transform: uppercase;
 }
 
 .refresh-btn:hover {
-  background: #333;
-  color: #fff;
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--color-purple);
 }
 
 .refresh-btn:disabled {
@@ -148,7 +225,7 @@ header p {
 
 .component-list li {
   padding: 0.75rem 0;
-  border-bottom: 1px solid #222;
+  border-bottom: 2px dashed var(--color-purple-mid);
   display: flex;
   justify-content: space-between;
 }
@@ -158,10 +235,27 @@ header p {
 }
 
 .component-list .name {
-  color: #fff;
+  color: var(--color-purple);
+  font-weight: 700;
 }
 
 .component-list .desc {
-  color: #888;
+  color: var(--color-purple-mid);
   font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Score display styling */
+.score-display {
+  font-family: var(--font-retro);
+  font-size: 2rem;
+  color: var(--color-purple);
+}
+
+.score-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-purple-mid);
 }

@@ -1,25 +1,38 @@
 .console-card {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 10px;
-  padding: 1rem;
-  transition: border-color 0.2s;
+  background: linear-gradient(180deg, #f3b3e1 -36%, #fffafc 100%);
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  transition: all 0.15s;
+  box-shadow: 4px 4px 0 var(--color-purple);
 }
 
 .console-card:hover {
-  border-color: #555;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--color-purple);
 }
 
 .console-card.online {
-  border-left: 3px solid #22c55e;
+  border-left: 6px solid #22a65a;
 }
 
 .console-card.offline {
-  border-left: 3px solid #ef4444;
+  border-left: 6px solid #d94368;
+  opacity: 0.7;
 }
 
 .console-card.warning {
-  border-left: 3px solid #f59e0b;
+  border-left: 6px solid #e89b25;
+}
+
+.console-card.playing {
+  background: linear-gradient(128.51deg, #c7eaf2 14.63%, #86d5e7 79.6%);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 4px 4px 0 var(--color-purple); }
+  50% { box-shadow: 4px 4px 16px rgba(89, 53, 180, 0.5); }
 }
 
 .console-header {
@@ -30,37 +43,43 @@
 }
 
 .console-name {
-  font-weight: 600;
-  font-size: 1rem;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-purple);
 }
 
 .console-id {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--color-purple-mid);
   font-family: monospace;
 }
 
 .status-badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.7rem;
+  font-weight: 800;
   text-transform: uppercase;
+  border: 2px solid;
 }
 
 .status-badge.online {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background: #d4f5e0;
+  color: #166d3b;
+  border-color: #22a65a;
 }
 
 .status-badge.offline {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background: #fde0e6;
+  color: #9b2c46;
+  border-color: #d94368;
 }
 
 .status-badge.warning {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
+  background: #fef3d6;
+  color: #8b5c10;
+  border-color: #e89b25;
 }
 
 .console-details {
@@ -76,39 +95,80 @@
 }
 
 .detail-label {
-  color: #666;
-  font-size: 0.75rem;
+  color: var(--color-purple-mid);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .detail-value {
-  color: #fff;
+  color: var(--color-purple);
+  font-weight: 600;
 }
 
 .detail-value.hot {
-  color: #ef4444;
+  color: #d94368;
 }
 
 .detail-value.warm {
-  color: #f59e0b;
+  color: #e89b25;
 }
 
 .detail-value.cool {
-  color: #22c55e;
+  color: #22a65a;
+}
+
+.detail-value.playing {
+  color: var(--color-purple-mid);
+  font-weight: 700;
+}
+
+.detail-value.score {
+  font-family: var(--font-retro);
+  color: var(--color-purple);
+  font-size: 1rem;
 }
 
 .console-footer {
   margin-top: 0.75rem;
   padding-top: 0.75rem;
-  border-top: 1px solid #333;
+  border-top: 2px dashed var(--color-purple-mid);
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: #666;
+  color: var(--color-purple-mid);
 }
 
 .version-tag {
-  background: #252525;
-  padding: 0.15rem 0.4rem;
-  border-radius: 3px;
-  font-family: monospace;
+  background: linear-gradient(128.51deg, #c7eaf2 14.63%, #86d5e7 79.6%);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-retro);
+  font-size: 0.7rem;
+  color: var(--color-purple);
+}
+
+/* Playing indicator */
+.playing-indicator {
+  background: var(--color-accent);
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 2px 2px 0 var(--color-purple);
+}
+
+.playing-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-purple);
+}
+
+.playing-value {
+  font-family: var(--font-retro);
+  color: var(--color-purple);
 }

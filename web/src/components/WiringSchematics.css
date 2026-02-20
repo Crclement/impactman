@@ -3,10 +3,12 @@
 }
 
 .schematic {
-  background: #0d1117;
-  border-radius: 8px;
-  padding: 1rem;
+  background: linear-gradient(180deg, #f3b3e1 -36%, #fffafc 100%);
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
   overflow-x: auto;
+  box-shadow: 4px 4px 0 var(--color-purple);
 }
 
 .schematic svg {
@@ -25,33 +27,38 @@
 .pin-table td {
   padding: 0.5rem;
   text-align: left;
-  border-bottom: 1px solid #333;
+  border-bottom: 2px solid var(--color-purple-mid);
 }
 
 .pin-table th {
-  color: #ffcc00;
-  font-weight: 600;
+  font-family: var(--font-body);
+  color: var(--color-purple);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
 }
 
 .pin-table td:first-child {
-  font-family: monospace;
-  color: #4ade80;
+  font-family: var(--font-retro);
+  color: var(--color-purple-mid);
+  font-size: 0.8rem;
 }
 
 .wire-color {
   display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
   margin-right: 0.5rem;
   vertical-align: middle;
+  border: 2px solid var(--color-purple);
 }
 
-.wire-red { background: #ef4444; }
-.wire-black { background: #1a1a1a; border: 1px solid #444; }
-.wire-yellow { background: #facc15; }
-.wire-green { background: #22c55e; }
-.wire-blue { background: #3b82f6; }
-.wire-white { background: #fff; }
-.wire-orange { background: #f97316; }
-.wire-purple { background: #a855f7; }
+.wire-red { background: #f3b3e1; }
+.wire-black { background: #16114f; }
+.wire-yellow { background: #d9ff69; }
+.wire-green { background: #22a65a; }
+.wire-blue { background: #86d5e7; }
+.wire-white { background: #fffafc; }
+.wire-orange { background: #e89b25; }
+.wire-purple { background: #5935b4; }

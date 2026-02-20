@@ -7,26 +7,33 @@ function ConsoleCard({ data }) {
     return 'cool'
   }
 
-  const getStatusText = (status) => {
-    switch (status) {
-      case 'online': return 'Connected'
-      case 'warning': return 'High Load'
-      case 'offline': return 'Disconnected'
-      default: return status
-    }
-  }
+  const cardClass = `console-card ${data.status}${data.isPlaying ? ' playing' : ''}`
 
   return (
-    <div className={`console-card ${data.status}`}>
+    <div className={cardClass}>
       <div className="console-header">
         <div>
           <div className="console-name">{data.name}</div>
           <div className="console-id">{data.consoleId}</div>
         </div>
-        <span className={`status-badge ${data.status}`}>{data.status}</span>
+        <span className={`status-badge ${data.status}`}>
+          {data.isPlaying ? 'PLAYING' : data.status}
+        </span>
       </div>
 
       <div className="console-details">
+        <div className="detail-item">
+          <span className="detail-label">Games Played</span>
+          <span className="detail-value score">
+            {data.gamesPlayed?.toLocaleString() || 0}
+          </span>
+        </div>
+        <div className="detail-item">
+          <span className="detail-label">High Score</span>
+          <span className="detail-value score">
+            {data.highScore?.toLocaleString() || 0}
+          </span>
+        </div>
         <div className="detail-item">
           <span className="detail-label">Temperature</span>
           <span className={`detail-value ${getTempClass(data.temperature)}`}>
@@ -39,31 +46,30 @@ function ConsoleCard({ data }) {
             {data.cpuUsage > 0 ? `${data.cpuUsage}%` : '-'}
           </span>
         </div>
-        <div className="detail-item">
-          <span className="detail-label">Memory</span>
-          <span className="detail-value">
-            {data.memoryUsage > 0 ? `${data.memoryUsage}%` : '-'}
-          </span>
-        </div>
-        <div className="detail-item">
-          <span className="detail-label">Uptime</span>
-          <span className="detail-value">{data.uptime}</span>
-        </div>
-        <div className="detail-item">
-          <span className="detail-label">Games Played</span>
-          <span className="detail-value">
-            {data.gamesPlayed?.toLocaleString() || 0}
-          </span>
-        </div>
-        <div className="detail-item">
-          <span className="detail-label">Last Seen</span>
-          <span className="detail-value">{data.lastSeenText}</span>
-        </div>
       </div>
 
+      {data.isPlaying && (
+        <div className="playing-indicator">
+          <div>
+            <span className="playing-label">Level</span>
+            <span className="playing-value"> {data.currentLevel}</span>
+          </div>
+          <div>
+            <span className="playing-label">Score</span>
+            <span className="playing-value"> {data.currentScore?.toLocaleString()}</span>
+          </div>
+          {data.sessionDuration && (
+            <div>
+              <span className="playing-label">Time</span>
+              <span className="playing-value"> {data.sessionDuration}</span>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="console-footer">
-        <span>Version: <span className="version-tag">{data.version}</span></span>
-        <span>{getStatusText(data.status)}</span>
+        <span>v<span className="version-tag">{data.version}</span></span>
+        <span>{data.lastSeenText}</span>
       </div>
     </div>
   )
