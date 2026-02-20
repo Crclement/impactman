@@ -3,12 +3,12 @@
 }
 
 .schematic {
-  background: linear-gradient(180deg, #f3b3e1 -36%, #fffafc 100%);
+  background: var(--color-white);
   border: 3px solid var(--color-purple);
   border-radius: var(--border-radius);
-  padding: 1.25rem;
+  padding: 1rem;
   overflow-x: auto;
-  box-shadow: 4px 4px 0 var(--color-purple);
+  box-shadow: 0 6px 0 var(--color-purple);
 }
 
 .schematic svg {
@@ -31,17 +31,16 @@
 }
 
 .pin-table th {
-  font-family: var(--font-body);
+  font-family: var(--font-retro);
   color: var(--color-purple);
-  font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
 }
 
-.pin-table td:first-child {
+.pin-table td {
   font-family: var(--font-retro);
-  color: var(--color-purple-mid);
-  font-size: 0.8rem;
+  color: var(--color-purple);
+  font-size: 0.65rem;
 }
 
 .wire-color {

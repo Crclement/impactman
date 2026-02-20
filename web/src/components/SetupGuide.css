@@ -3,29 +3,31 @@
 }
 
 .setup-intro {
-  color: var(--color-purple-mid);
+  font-family: var(--font-body);
+  color: var(--color-purple);
   margin-bottom: 1rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .setup-intro code {
+  font-family: var(--font-retro);
   color: var(--color-purple);
-  background: var(--color-blue-light);
+  background: var(--color-green);
   padding: 0.2rem 0.5rem;
   border-radius: var(--border-radius-sm);
-  font-weight: 700;
+  font-size: 0.7rem;
 }
 
 .code-block {
   background: var(--color-purple);
   border: 3px solid var(--color-purple);
   border-radius: var(--border-radius);
-  padding: 1.25rem;
+  padding: 1rem;
   overflow-x: auto;
   font-family: var(--font-retro);
-  font-size: 0.75rem;
-  color: var(--color-accent);
+  font-size: 0.6rem;
+  color: var(--color-green);
   white-space: pre;
-  box-shadow: 4px 4px 0 rgba(22, 17, 79, 0.3);
-  line-height: 1.8;
+  box-shadow: 0 6px 0 rgba(22, 17, 79, 0.5);
+  line-height: 2;
 }

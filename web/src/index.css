@@ -35,29 +35,28 @@ h1 {
 }
 
 button {
-  border-radius: 20px;
+  border-radius: 12px;
   border: 3px solid #16114f;
-  padding: 0.75em 1.5em;
+  padding: 0.5em 1.25em;
   font-size: 1em;
-  font-weight: 700;
-  font-family: inherit;
-  background-color: #d9ff69;
+  font-family: 'Kontesa', inherit;
+  background-color: #dfff80;
   color: #16114f;
   cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 0 #16114f;
+  transition: all 0.15s;
+  box-shadow: 0 6px 0 #16114f;
   text-transform: uppercase;
 }
 button:hover {
-  transform: translateY(4px);
-  box-shadow: 0 4px 0 #16114f;
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #16114f;
 }
 button:active {
-  transform: translateY(8px);
+  transform: translateY(6px);
   box-shadow: 0 0 0 #16114f;
 }
 button:focus,
 button:focus-visible {
-  outline: 3px solid #d9ff69;
+  outline: 3px solid #dfff80;
   outline-offset: 2px;
 }
