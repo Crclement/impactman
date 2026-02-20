@@ -1,28 +1,19 @@
-/* Impactman Light Retro Theme - Matched to game */
+/* Impactman Mission Control - Matched to game */
 :root {
   --font-headline: 'Kontesa', 'Impact', sans-serif;
   --font-retro: 'Retro-Land-Mayhem', monospace;
   --font-body: 'Agrandir', -apple-system, BlinkMacSystemFont, sans-serif;
   --color-bg-start: #b7dde7;
   --color-bg-end: #fff;
-  --color-card-start: #f3b3e1;
-  --color-card-end: #fffafc;
-  --color-slider-start: #c7eaf2;
-  --color-slider-end: #86d5e7;
+  --color-green: #dfff80;
   --color-border: #16114f;
-  --color-accent: #d9ff69;
-  --color-accent-blue: #4d8bec;
-  --color-pink: #f3b3e1;
-  --color-blue: #86d5e7;
-  --color-blue-light: #c7eaf2;
+  --color-accent: #dfff80;
   --color-purple: #16114f;
   --color-purple-mid: #5935b4;
   --color-text: #16114f;
-  --color-text-light: #5935b4;
-  --color-white: #fffafc;
-  --border-radius: 20px;
-  --border-radius-sm: 12px;
-  --shadow-offset: 4px;
+  --color-white: #ffffff;
+  --border-radius: 12px;
+  --border-radius-sm: 10px;
 }
 
 * {
@@ -112,40 +103,38 @@ header p {
 .nav-tabs {
   display: flex;
   gap: 0.75rem;
-  border-bottom: 3px solid var(--color-purple);
-  padding-bottom: 1rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
 
 .nav-tab {
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1.25rem;
   background: var(--color-white);
   border: 3px solid var(--color-purple);
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   color: var(--color-purple);
   cursor: pointer;
-  font-size: 0.95rem;
+  font-family: var(--font-headline);
+  font-size: 1rem;
   font-weight: 700;
   transition: all 0.15s;
-  box-shadow: 0 8px 0 var(--color-purple);
+  box-shadow: 0 6px 0 var(--color-purple);
   position: relative;
   top: 0;
   text-transform: uppercase;
 }
 
 .nav-tab:hover {
-  background: linear-gradient(128.51deg, var(--color-slider-start), var(--color-slider-end));
-  top: 4px;
-  box-shadow: 0 4px 0 var(--color-purple);
+  background: var(--color-green);
+  top: 3px;
+  box-shadow: 0 3px 0 var(--color-purple);
 }
 
 .nav-tab.active {
-  background: var(--color-accent);
+  background: var(--color-green);
   border-color: var(--color-purple);
   color: var(--color-purple);
-  font-weight: 800;
-  top: 8px;
+  top: 6px;
   box-shadow: 0 0 0 var(--color-purple);
 }
 
@@ -162,11 +151,9 @@ header p {
 }
 
 .card {
-  background: linear-gradient(180deg, #f3b3e1 -36%, #fffafc 100%);
-  border: 3px solid var(--color-purple);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: 4px 4px 0 var(--color-purple);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .card.full-width {
@@ -174,9 +161,11 @@ header p {
 }
 
 .card-header {
-  background: var(--color-white);
-  padding: 1rem 1.5rem;
-  border-bottom: 3px solid var(--color-purple);
+  background: var(--color-green);
+  padding: 0.5rem 1.25rem;
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 0 var(--color-purple);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -184,15 +173,20 @@ header p {
 
 .card-header h2 {
   font-family: var(--font-headline);
-  font-size: 1.25rem;
+  font-size: 2rem;
   color: var(--color-purple);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  line-height: 1;
 }
 
 .card-body {
-  padding: 1.5rem;
+  background: var(--color-white);
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 0 var(--color-purple);
+  padding: 0.375rem;
+  margin-top: 0.75rem;
 }
 
 .refresh-btn {

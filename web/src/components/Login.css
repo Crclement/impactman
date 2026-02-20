@@ -7,13 +7,13 @@
 }
 
 .login-card {
-  background: linear-gradient(180deg, #f3b3e1 -36%, #fffafc 100%);
+  background: var(--color-white);
   border: 3px solid var(--color-purple);
   border-radius: var(--border-radius);
-  padding: 2.5rem;
+  padding: 2rem;
   width: 100%;
   max-width: 400px;
-  box-shadow: 4px 4px 0 var(--color-purple);
+  box-shadow: 0 6px 0 var(--color-purple);
   transition: all 0.15s;
 }
 
@@ -30,32 +30,29 @@
 }
 
 .login-header {
+  background: var(--color-green);
+  border: 3px solid var(--color-purple);
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 0 var(--color-purple);
+  padding: 1rem 1.5rem;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .login-header h1 {
   font-family: var(--font-headline);
-  font-size: 3rem;
-  color: var(--color-accent);
+  font-size: 2.5rem;
+  color: var(--color-purple);
   font-weight: 700;
-  letter-spacing: 0;
-  text-shadow:
-    -3px -3px 0 var(--color-purple),
-    3px -3px 0 var(--color-purple),
-    -3px 3px 0 var(--color-purple),
-    3px 3px 0 var(--color-purple),
-    0 6px 0 var(--color-purple-mid);
-  margin-bottom: 0.5rem;
-  line-height: 1.1;
+  line-height: 1;
+  margin-bottom: 0.25rem;
 }
 
 .login-header p {
-  color: var(--color-purple-mid);
-  font-weight: 700;
+  font-family: var(--font-retro);
+  color: var(--color-purple);
   text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 2px;
+  font-size: 0.7rem;
 }
 
 .login-form {
@@ -71,28 +68,28 @@
 }
 
 .input-group label {
+  font-family: var(--font-retro);
   color: var(--color-purple);
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
 }
 
 .input-group input {
-  padding: 1rem;
-  border: 3px solid var(--color-purple);
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--color-purple);
   border-radius: var(--border-radius-sm);
-  font-size: 1.1rem;
-  font-family: inherit;
+  font-size: 1rem;
+  font-family: var(--font-body);
   font-weight: 600;
   background: var(--color-white);
   color: var(--color-purple);
-  box-shadow: 4px 4px 0 var(--color-purple);
+  box-shadow: 0 3px 0 var(--color-purple);
   transition: all 0.15s;
 }
 
 .input-group input:focus {
   outline: none;
-  box-shadow: 4px 4px 0 var(--color-purple), 0 0 0 3px var(--color-accent);
+  background: var(--color-green);
 }
 
 .input-group input::placeholder {
@@ -112,26 +109,25 @@
 }
 
 .login-btn {
-  background: var(--color-accent);
+  font-family: var(--font-headline);
+  background: var(--color-green);
   border: 3px solid var(--color-purple);
-  border-radius: var(--border-radius-sm);
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 800;
+  border-radius: var(--border-radius);
+  padding: 0.75rem 2rem;
+  font-size: 1.5rem;
   color: var(--color-purple);
   cursor: pointer;
-  box-shadow: 0 8px 0 var(--color-purple);
+  box-shadow: 0 6px 0 var(--color-purple);
   transition: all 0.15s;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .login-btn:hover {
-  transform: translateY(4px);
-  box-shadow: 0 4px 0 var(--color-purple);
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 var(--color-purple);
 }
 
 .login-btn:active {
-  transform: translateY(8px);
+  transform: translateY(6px);
   box-shadow: 0 0 0 var(--color-purple);
 }
