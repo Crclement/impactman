@@ -1,0 +1,12 @@
+{
+  "name": "impactman",
+  "version": "1.0.0",
+  "description": "Impactman arcade fleet management",
+  "scripts": {
+    "start": "cd api && npm start",
+    "install": "cd api && npm install"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
