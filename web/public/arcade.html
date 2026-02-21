@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Impact Arcade</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Impact Arcade">
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/fonts/style.css">
+  <link rel="preload" as="font" crossorigin="anonymous" href="/fonts/Kontesa-Typeface-Bold.woff">
+  <link rel="preload" as="font" crossorigin="anonymous" href="/fonts/Retro-Land-Mayhem.woff">
+  <link rel="preload" as="font" crossorigin="anonymous" href="/fonts/Agrandir-700.woff">
+  <link rel="preload" as="font" crossorigin="anonymous" href="/fonts/Agrandir-800.woff">
+  <link rel="stylesheet" href="/_nuxt/entry.0652a284.css">
+  <link rel="stylesheet" href="/_nuxt/PageWithLoader.bfc82fc7.css">
+  <link rel="stylesheet" href="/_nuxt/impactman.5b1a29f5.css">
+  <link rel="stylesheet" href="/_nuxt/UnityGame.d5407bc2.css">
+  <link rel="stylesheet" href="/_nuxt/Box.c59f3660.css">
+  <style>
+    .bg-gradient-pink{background:linear-gradient(180.02deg,#f3b3e1 -36.79%,#fffafc 99.99%);border:3px solid #16114f;box-shadow:4px 4px 0 #16114f}
+    .game-container{background:linear-gradient(157.64deg,#b7dde7 12.88%,#fff 66.19%);min-height:100vh;position:relative}
+    .game-container:before{background-image:url(/images/backgrounds/game-page.svg);background-repeat:no-repeat;background-size:contain;content:"";height:100%;left:0;position:absolute;top:0;width:100%;z-index:0}
+    @media (min-width:1280px){.game-container:before{background-size:cover}}
+    .game-page{display:flex;flex-direction:column;justify-content:center;position:relative;width:100%}
+    @media (min-width:768px){.game-page{flex-direction:row;gap:1.25rem}}
+    .game-page .game-page__section{position:relative;z-index:10}
+    @media (min-width:768px){.game-page .game-page__section{max-width:380px}.game-page .game-page__section--full{max-width:100%}}
+    .container-fluid{padding:.875rem;width:100%}
+    @media (min-width:768px){.container-fluid{padding:1.25rem}}
+    .realimpact{overflow:hidden;position:relative}
+    .realimpact p{font-size:15px;position:relative;z-index:10}
+    .slider{background:linear-gradient(128.51deg,#c7eaf2 14.63%,#86d5e7 79.6%);border-radius:20px;height:.75rem;overflow:hidden}
+    .slider .slider-progress{background-color:#16114f;border-radius:20px;height:100%;transition:all .15s}
+    .score-view-points{-webkit-text-stroke:5.5px #16114f;color:#d9ff69;display:inline-block;font-size:45px;font-weight:700;line-height:45px;margin:.5rem 1.5rem;position:relative;text-shadow:0 2px 0 #5935b4,0 5px 0 #000;text-transform:uppercase}
+    .score-view-points .ontop{-webkit-text-stroke:1.5px #16114f;position:absolute;left:0}
+    .summary-item{text-align:center}
+    .summary-item .label{border-right:3px solid #16114f;font-size:.75rem;line-height:1;padding:.5rem;text-transform:uppercase;width:40%}
+    .leaderboard-item{border-color:#16114f;border-style:solid;box-shadow:0 3.71343px 0 #16114f;padding:.25rem 1rem}
+    .text-play{-webkit-text-stroke:2px #000;color:#fff;letter-spacing:-4px}
+    .button-play{box-shadow:0 8px 0 #16114f;transition:all .15s}
+    .button-play:active{box-shadow:0 0 0 #16114f;transform:translateY(8px)}
+    .text-high{color:#d9ff69}
+    .logo-loading{backdrop-filter:blur(8px);background:#4d8bec;border-radius:16px;display:grid;height:calc(100% - 8px);left:4px;place-content:center;position:absolute;top:4px;width:calc(100% - 8px);z-index:10}
+    .logo-loading .logo{animation:logo-animation .5s ease-in-out infinite}
+    @keyframes logo-animation{0%{transform:scale(1)}50%{transform:scale(1.3)}to{transform:scale(1)}}
+    .unity-game{position:relative;background:#4d8bec;border-radius:.5rem}
+    .unity-game canvas{border-radius:.5rem;display:block}
+    .play-screen{position:absolute;top:0;left:0;width:100%;height:100%;background:#4d8bec;border-radius:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20}
+    .play-screen.hidden{display:none}
+    .bg-green{background-color:#a8e6cf}
+    .bg-purple{background-color:#9b5de5}
+    .bg-navyBlue{background-color:#16114f}
+    .bg-limeGreen{background-color:#d9ff69}
+    .text-navyBlue{color:#16114f}
+    .font-kontesa{font-family:'Kontesa',sans-serif}
+    .font-retro{font-family:'Retro',monospace}
+    .font-agrandir{font-family:'Agrandir',sans-serif}
+    .box-2{border:2px solid #16114f;box-shadow:2px 2px 0 #16114f}
+    .box-3{border:3px solid #16114f;box-shadow:4px 4px 0 #16114f}
+  </style>
+</head>
+<body>
+  <div class="game-container min-h-screen pt-4">
+    <div class="container-fluid game-page">
+      <!-- Left Column -->
+      <div class="flex flex-col gap-5 game-page__section w-full">
+        <!-- Plastic Progress -->
+        <div class="text-navyBlue">
+          <div class="text-uppercase text-5xl font-kontesa leading-none"><span id="bags-display">0</span> BAGS</div>
+          <div class="w-full box-2 rounded-lg slider mb-2">
+            <div class="slider-progress" id="progress-bar" style="width:0%;"></div>
+          </div>
+          <div class="text-xs font-bold">PLASTIC REMOVED</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="hidden md:block">
+          <div class="w-full box-3 summary-item text-lg rounded-md bg-white flex overflow-hidden mb-2">
+            <div class="flex justify-start font-agrandir label bg-green text-left">
+              <div class="flex w-full font-bold items-center justify-center text-sm text-center">Ocean Plastic Removed</div>
+            </div>
+            <div class="value font-kontesa flex-1">
+              <div class="flex items-center justify-center">
+                <div class="score-view-points"><span class="relative" id="ocean-score">0<span class="ontop" id="ocean-score-top">0</span></span></div>
+                <div class="uppercase font-agrandir leading-none text-sm font-bold ml-4 inline-flex items-center">
+                  <img src="/images/icons/bags.png" class="h-8">
+                  <span class="ml-2"><p class="mb-0">Plastic</p><p>Bags</p></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full box-3 summary-item text-lg rounded-md bg-white flex overflow-hidden mb-2">
+            <div class="flex justify-start font-agrandir label bg-green text-left">
+              <div class="flex w-full font-bold items-center justify-center text-sm">Score</div>
+            </div>
+            <div class="value font-kontesa flex-1">
+              <div class="score-view-points"><span class="relative" id="score">0<span class="ontop" id="score-top">0</span></span></div>
+            </div>
+          </div>
+          <div class="w-full box-3 summary-item text-lg rounded-md bg-white flex overflow-hidden mb-2">
+            <div class="flex justify-start font-agrandir label bg-green text-left">
+              <div class="text-sm flex w-full font-bold items-center justify-center"><img src="/images/icons/level.png" class="mr-2 h-8">Level</div>
+            </div>
+            <div class="value font-kontesa flex-1">
+              <div class="score-view-points"><span class="relative" id="level">1<span class="ontop" id="level-top">1</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="game-card hidden md:block">
+          <div class="w-full box-3 font-kontesa rounded-xl py-2 px-5 bg-green text-[45px] leading-none mb-1" style="color:#16114F;">Leaderboard</div>
+          <div class="w-full box-3 p-1.5 rounded-xl bg-white">
+            <div class="grid grid-cols-1 gap-1.5">
+              <div class="border-2 rounded-md leaderboard-item flex items-center px-4 bg-green">
+                <div class="font-retro mr-2 text-xs">1</div>
+                <img class="w-8 h-8 mr-4" src="/images/homepage/scoreboard/ape-cool.png">
+                <div class="font-retro uppercase text-xs">franko</div>
+                <div class="font-retro uppercase ml-auto text-xs">302,023</div>
+              </div>
+              <div class="border-2 rounded-md leaderboard-item flex items-center px-4">
+                <div class="font-retro mr-2 text-xs">2</div>
+                <img class="w-8 h-8 mr-4" src="/images/homepage/scoreboard/ape-cool.png">
+                <div class="font-retro uppercase text-xs">player2</div>
+                <div class="font-retro uppercase ml-auto text-xs">250,000</div>
+              </div>
+              <div class="border-2 rounded-md leaderboard-item flex items-center px-4">
+                <div class="font-retro mr-2 text-xs">3</div>
+                <img class="w-8 h-8 mr-4" src="/images/homepage/scoreboard/ape-cool.png">
+                <div class="font-retro uppercase text-xs">player3</div>
+                <div class="font-retro uppercase ml-auto text-xs">200,000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center - Unity Game -->
+      <div class="relative z-50 rounded-xl game-page__section game-page__section--full w-fit h-full">
+        <div class="hidden md:block w-fit">
+          <div class="w-full box-3 rounded-lg h-full bg-white w-fit">
+            <div class="rounded-lg unity-game relative w-full h-full">
+              <canvas id="unity-canvas" class="rounded-lg" width="600" height="664"></canvas>
+
+              <!-- Loading Screen -->
+              <div class="logo-loading" id="loading-screen">
+                <img src="/images/header/cool.svg" class="logo" width="57" height="57">
+              </div>
+
+              <!-- Play Screen -->
+              <div class="play-screen" id="play-screen">
+                <div class="font-kontesa text-navyBlue text-2xl uppercase mb-8 text-center px-4">
+                  WARNING: THIS GAME REMOVES REAL-WORLD OCEAN PLASTIC!
+                </div>
+                <button class="button-play w-48 font-retro uppercase py-3 px-12 border-4 border-navyBlue text-4xl bg-purple text-center rounded-xl" id="play-btn">
+                  <span class="text-play">Play</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Sound Toggle -->
+            <div class="flex gap-2 w-full mt-4 justify-end">
+              <div class="select-none cursor-pointer inline-flex items-center" id="sound-toggle">
+                <span class="font-bold mr-2" id="sound-text">SOUND ON</span>
+                <img src="/images/sound/on.png" id="sound-img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="relative z-0 flex flex-col gap-5 game-page__section w-full">
+        <!-- Allies -->
+        <div class="game-card">
+          <div class="w-full box-3 font-kontesa rounded-xl py-2 px-5 bg-green text-[45px] leading-none mb-1" style="color:#16114F;">Allies</div>
+          <div class="w-full box-3 p-2 rounded-xl bg-white">
+            <div class="text-navyBlue text-xs uppercase inline-flex mb-1">
+              <img src="/images/ship.png" class="h-5 mr-2">
+              <span><b>[polygon]</b> helped <b>[PLAYER]</b> remove <b>5</b> bags</span>
+            </div>
+            <div class="text-navyBlue text-xs uppercase inline-flex mb-1">
+              <img src="/images/ship.png" class="h-5 mr-2">
+              <span><b>[polygon]</b> helped <b>[PLAYER]</b> remove <b>5</b> bags</span>
+            </div>
+            <div class="text-navyBlue text-xs uppercase inline-flex">
+              <img src="/images/ship.png" class="h-5 mr-2">
+              <span><b>[polygon]</b> helped <b>[PLAYER]</b> remove <b>5</b> bags</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Impact -->
+        <div class="game-card hidden md:block">
+          <div class="w-full box-3 font-kontesa rounded-xl py-2 px-5 bg-green text-[45px] leading-none mb-1" style="color:#16114F;">Real Impact</div>
+          <div class="rounded-xl box-3 overflow-hidden">
+            <div class="relative">
+              <div class="realimpact rounded-md uppercase text-white p-5 h-64">
+                <img src="/images/impact_image.png" class="absolute z-10 top-0 right-0 w-full h-full object-cover">
+              </div>
+              <div class="p-6 font-bold uppercase text-white absolute top-0 z-20 left-0">
+                <p>partner:</p>
+                <p>ocean voyages institute</p>
+                <p class="mt-4">impact guaranteed!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unity Loader -->
+  <script src="/impactman/Build/impactman.loader.js"></script>
+  <script>
+    // Game state
+    var gameState = {
+      score: 0,
+      level: 1,
+      bags: 0,
+      soundOn: true
+    };
+    var unityInstance = null;
+    var gameStarted = false;
+
+    // Message handler from Unity
+    window.OnWebMessage = function(data) {
+      console.log('Unity says:', data);
+      try {
+        var parsed = JSON.parse(data);
+        if (parsed.currentScore !== undefined) {
+          gameState.score = parsed.currentScore;
+        }
+        if (parsed.currentLevel !== undefined) {
+          gameState.level = parsed.currentLevel;
+        }
+        if (parsed.currentBags !== undefined) {
+          gameState.bags = parsed.currentBags;
+        }
+        updateUI();
+      } catch(e) {
+        console.log('Unity message:', data);
+      }
+    };
+
+    function updateUI() {
+      document.getElementById('score').innerHTML = gameState.score + '<span class="ontop">' + gameState.score + '</span>';
+      document.getElementById('level').innerHTML = gameState.level + '<span class="ontop">' + gameState.level + '</span>';
+      document.getElementById('bags-display').textContent = gameState.bags;
+      document.getElementById('ocean-score').innerHTML = gameState.bags + '<span class="ontop">' + gameState.bags + '</span>';
+      document.getElementById('progress-bar').style.width = Math.min(gameState.bags, 100) + '%';
+    }
+
+    // Initialize Unity
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      dataUrl: "/impactman/Build/impactman.data",
+      frameworkUrl: "/impactman/Build/impactman.framework.js",
+      codeUrl: "/impactman/Build/impactman.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "Dollar Donation Club",
+      productName: "ImpactMan",
+      productVersion: "1.0",
+    }).then(function(instance) {
+      unityInstance = instance;
+      document.getElementById('loading-screen').style.display = 'none';
+      console.log('Unity loaded successfully');
+    }).catch(function(err) {
+      console.error('Unity load error:', err);
+      document.getElementById('loading-screen').innerHTML = '<p style="color:white;font-size:18px;">Error loading game</p>';
+    });
+
+    // Play button
+    document.getElementById('play-btn').addEventListener('click', function() {
+      document.getElementById('play-screen').classList.add('hidden');
+      gameStarted = true;
+
+      // Resume audio
+      if (window.AudioContext || window.webkitAudioContext) {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        ctx.resume();
+      }
+
+      // Focus canvas
+      document.getElementById('unity-canvas').focus();
+
+      // Tell Unity to start/restart
+      if (unityInstance) {
+        unityInstance.SendMessage('GameManager', 'OnWebMessage', '{"Action":"playAgain"}');
+      }
+    });
+
+    // Sound toggle
+    document.getElementById('sound-toggle').addEventListener('click', function() {
+      gameState.soundOn = !gameState.soundOn;
+      document.getElementById('sound-text').textContent = gameState.soundOn ? 'SOUND ON' : 'SOUND OFF';
+      document.getElementById('sound-img').src = gameState.soundOn ? '/images/sound/on.png' : '/images/sound/off.png';
+
+      if (unityInstance) {
+        var action = gameState.soundOn ? 'unmuteGame' : 'muteGame';
+        unityInstance.SendMessage('GameManager', 'OnWebMessage', '{"Action":"' + action + '"}');
+      }
+    });
+  </script>
+</body>
+</html>

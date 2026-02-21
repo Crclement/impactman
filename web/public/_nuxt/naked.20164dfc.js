@@ -1,0 +1,1 @@
+import{_ as e}from"./PageWithLoader.9367f3df.js";import{_ as r}from"./_plugin-vue_export-helper.a1a6add7.js";import{c as n,i as a,o as s,r as _}from"./entry.85f4081b.js";import"./transition.9300a449.js";const c={};function m(o,f){const t=e;return s(),n(t,null,{default:a(()=>[_(o.$slots,"default")]),_:3})}const u=r(c,[["render",m]]);export{u as default};
