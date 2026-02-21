@@ -504,6 +504,14 @@
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         ctx.resume();
       }
+      // Send play message to Unity
+      if (unityInstance) {
+        unityInstance.SendMessage('GameManager', 'OnWebMessage', JSON.stringify({
+          Action: 'playAgain'
+        }));
+      }
+      // Focus the canvas for keyboard input
+      document.getElementById('unity-canvas').focus();
     });
   </script>
 </body>
