@@ -262,6 +262,7 @@
       productVersion: "1.0",
       matchWebGLToCanvasSize: false,
       devicePixelRatio: 1,
+      cacheControl: function(url) { return "no-store"; },
     }).then(function(instance) {
       unityInstance = instance;
       document.getElementById('loading-screen').style.display = 'none';
