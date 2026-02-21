@@ -232,6 +232,56 @@
       100% { transform: scale(1); }
     }
 
+    .play-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(77, 139, 236, 0.95);
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 15;
+    }
+    .play-overlay.hidden { display: none; }
+
+    .button-play {
+      font-family: 'Retro', monospace;
+      text-transform: uppercase;
+      padding: 0.75rem 3rem;
+      border: 4px solid #16114f;
+      font-size: 2.25rem;
+      background: #9b5de5;
+      text-align: center;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      box-shadow: 0 8px 0 #16114f;
+      transition: all 0.15s ease;
+    }
+    .button-play:active {
+      box-shadow: 0 0 0 #16114f;
+      transform: translateY(8px);
+    }
+    .button-play:hover {
+      background: #a855f7;
+    }
+    .text-play {
+      -webkit-text-stroke: 2px #000;
+      color: #fff;
+      letter-spacing: -4px;
+    }
+
+    .warning-text {
+      font-family: 'Kontesa', sans-serif;
+      color: #16114f;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
     .sound-toggle {
       display: inline-flex;
       align-items: center;
@@ -333,6 +383,12 @@
           <canvas id="unity-canvas" width="600" height="664"></canvas>
           <div class="unity-game__loading" id="loading">
             <img src="/images/header/cool.svg" alt="Loading" width="57" height="57">
+          </div>
+          <div class="play-overlay" id="play-overlay">
+            <div class="warning-text">WARNING: THIS GAME REMOVES REAL-WORLD OCEAN PLASTIC!</div>
+            <button class="button-play" id="play-button">
+              <span class="text-play">Play</span>
+            </button>
           </div>
         </div>
         <div style="display: flex; justify-content: flex-end;">
@@ -437,6 +493,16 @@
         unityInstance.SendMessage('GameManager', 'OnWebMessage', JSON.stringify({
           Action: gameState.soundOn ? 'unmuteGame' : 'muteGame'
         }));
+      }
+    });
+
+    // Play button
+    document.getElementById('play-button').addEventListener('click', function() {
+      document.getElementById('play-overlay').classList.add('hidden');
+      // Resume audio context (required by browsers)
+      if (window.AudioContext || window.webkitAudioContext) {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        ctx.resume();
       }
     });
   </script>
