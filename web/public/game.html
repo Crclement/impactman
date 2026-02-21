@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impactman - Play Game</title>
+  <link rel="stylesheet" href="/fonts/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .game-container {
+      background: linear-gradient(157.64deg, #b7dde7 12.88%, #fff 66.19%);
+      min-height: 100vh;
+      position: relative;
+      padding-top: 1rem;
+    }
+
+    .game-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      padding: 0.875rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .game-page {
+        flex-direction: row;
+        gap: 1.25rem;
+        padding: 1.25rem;
+      }
+    }
+
+    .game-page__section {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .game-page__section { max-width: 380px; }
+      .game-page__section--full { max-width: 100%; }
+    }
+
+    .box-2 { border: 2px solid #16114f; box-shadow: 2px 2px 0 #16114f; }
+    .box-3 { border: 3px solid #16114f; box-shadow: 4px 4px 0 #16114f; }
+
+    .game-card__title {
+      background-color: #a8e6cf;
+      border-radius: 0.75rem;
+      padding: 0.5rem 1.25rem;
+      font-size: 45px;
+      line-height: 1;
+      color: #16114f;
+      font-family: 'Kontesa', sans-serif;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-item {
+      background: white;
+      border-radius: 0.375rem;
+      display: flex;
+      overflow: hidden;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-item .label {
+      border-right: 3px solid #16114f;
+      font-size: 0.75rem;
+      line-height: 1;
+      padding: 0.5rem;
+      text-transform: uppercase;
+      width: 40%;
+      background-color: #a8e6cf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .summary-item .value {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Kontesa', sans-serif;
+    }
+
+    .score-view-points {
+      -webkit-text-stroke: 5.5px #16114f;
+      color: #d9ff69;
+      font-size: 45px;
+      font-weight: 700;
+      line-height: 45px;
+      margin: 0.5rem 1.5rem;
+      position: relative;
+      text-shadow: 0 2px 0 #5935b4, 0 5px 0 #000;
+      text-transform: uppercase;
+    }
+
+    .score-view-points .ontop {
+      -webkit-text-stroke: 1.5px #16114f;
+      position: absolute;
+      left: 0;
+    }
+
+    .plastic-bar { color: #16114f; }
+    .plastic-bar__title {
+      text-transform: uppercase;
+      font-size: 3rem;
+      font-family: 'Kontesa', sans-serif;
+      line-height: 1;
+    }
+    .plastic-bar__slider {
+      background: linear-gradient(128.51deg, #c7eaf2 14.63%, #86d5e7 79.6%);
+      border-radius: 20px;
+      height: 0.75rem;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+    .plastic-bar__progress {
+      background-color: #16114f;
+      border-radius: 20px;
+      height: 100%;
+      transition: all 0.15s ease;
+    }
+    .plastic-bar__label { font-size: 0.75rem; font-weight: 700; }
+
+    .leaderboard {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 0.375rem;
+    }
+
+    .leaderboard-item {
+      border: 2px solid #16114f;
+      border-radius: 0.375rem;
+      box-shadow: 0 3.71px 0 #16114f;
+      padding: 0.25rem 1rem;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.375rem;
+      font-family: 'Retro', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .leaderboard-item:last-child { margin-bottom: 0; }
+    .leaderboard-item--highlight { background-color: #a8e6cf; }
+    .leaderboard-item__rank { margin-right: 0.5rem; }
+    .leaderboard-item__avatar { width: 2rem; height: 2rem; margin-right: 1rem; }
+    .leaderboard-item__name { flex: 1; }
+    .leaderboard-item__score { margin-left: auto; }
+
+    .allies-feed {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 0.5rem;
+    }
+    .allies-item {
+      color: #16114f;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    .allies-item__icon { height: 1.25rem; margin-right: 0.5rem; }
+
+    .real-impact {
+      position: relative;
+      border-radius: 0.375rem;
+      overflow: hidden;
+      height: 16rem;
+    }
+    .real-impact__image {
+      position: absolute;
+      top: 0; right: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .real-impact__content {
+      position: absolute;
+      top: 0; left: 0;
+      padding: 1.5rem;
+      color: white;
+      font-weight: 700;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .unity-game {
+      background: #4d8bec;
+      border-radius: 0.5rem;
+      position: relative;
+      width: 100%;
+    }
+    .unity-game canvas {
+      border-radius: 0.5rem;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .unity-game__loading {
+      position: absolute;
+      top: 4px; left: 4px;
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
+      background: #4d8bec;
+      border-radius: 16px;
+      display: grid;
+      place-content: center;
+      z-index: 10;
+    }
+    .unity-game__loading img {
+      animation: logo-pulse 0.5s ease-in-out infinite;
+    }
+    @keyframes logo-pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .sound-toggle {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      margin-top: 1rem;
+    }
+    .sound-toggle span { font-weight: 700; margin-right: 0.5rem; }
+    .sound-toggle img { width: 2rem; height: 2rem; }
+
+    .hidden { display: none; }
+    @media (min-width: 768px) {
+      .md-block { display: block; }
+      .md-hidden { display: none; }
+    }
+    @media (max-width: 767px) {
+      .md-block { display: none; }
+      .md-only-hidden { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div class="game-page">
+      <!-- Left Column -->
+      <div class="game-page__section">
+        <!-- Plastic Bar -->
+        <div class="plastic-bar">
+          <div class="plastic-bar__title"><span id="bags-count">0</span> BAGS</div>
+          <div class="plastic-bar__slider box-2" style="border-radius: 0.5rem;">
+            <div class="plastic-bar__progress" id="plastic-progress" style="width: 0%;"></div>
+          </div>
+          <div class="plastic-bar__label">PLASTIC REMOVED</div>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="md-block">
+          <div class="summary-item box-3">
+            <div class="label">Ocean Plastic Removed</div>
+            <div class="value">
+              <div class="score-view-points">
+                <span class="relative"><span id="ocean-bags">0</span><span class="ontop" id="ocean-bags-top">0</span></span>
+              </div>
+              <div style="display: flex; align-items: center; margin-left: 1rem;">
+                <img src="/images/icons/bags.png" alt="" style="height: 2rem;">
+                <span style="margin-left: 0.5rem; font-size: 0.875rem; font-weight: 700; text-transform: uppercase;">
+                  <p style="margin: 0;">Plastic</p><p style="margin: 0;">Bags</p>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="summary-item box-3">
+            <div class="label">Score</div>
+            <div class="value">
+              <div class="score-view-points">
+                <span class="relative"><span id="score">0</span><span class="ontop" id="score-top">0</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="summary-item box-3">
+            <div class="label"><img src="/images/icons/level.png" alt="" style="height: 2rem; margin-right: 0.5rem;"> Level</div>
+            <div class="value">
+              <div class="score-view-points">
+                <span class="relative"><span id="level">1</span><span class="ontop" id="level-top">1</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard Desktop -->
+        <div class="md-block">
+          <div class="game-card__title box-3">Leaderboard</div>
+          <div class="leaderboard box-3">
+            <div class="leaderboard-item leaderboard-item--highlight">
+              <div class="leaderboard-item__rank">1</div>
+              <img src="/images/homepage/scoreboard/ape-cool.png" class="leaderboard-item__avatar">
+              <div class="leaderboard-item__name">franko</div>
+              <div class="leaderboard-item__score">302,023</div>
+            </div>
+            <div class="leaderboard-item">
+              <div class="leaderboard-item__rank">2</div>
+              <img src="/images/homepage/scoreboard/ape-cool.png" class="leaderboard-item__avatar">
+              <div class="leaderboard-item__name">player2</div>
+              <div class="leaderboard-item__score">250,000</div>
+            </div>
+            <div class="leaderboard-item">
+              <div class="leaderboard-item__rank">3</div>
+              <img src="/images/homepage/scoreboard/ape-cool.png" class="leaderboard-item__avatar">
+              <div class="leaderboard-item__name">player3</div>
+              <div class="leaderboard-item__score">200,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center - Game -->
+      <div class="game-page__section game-page__section--full">
+        <div class="unity-game box-3" style="border-radius: 0.5rem;">
+          <canvas id="unity-canvas" width="600" height="664"></canvas>
+          <div class="unity-game__loading" id="loading">
+            <img src="/images/header/cool.svg" alt="Loading" width="57" height="57">
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end;">
+          <div class="sound-toggle" id="sound-toggle">
+            <span id="sound-label">SOUND ON</span>
+            <img src="/images/sound/on.png" id="sound-icon">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="game-page__section">
+        <!-- Allies -->
+        <div>
+          <div class="game-card__title box-3">Allies</div>
+          <div class="allies-feed box-3">
+            <div class="allies-item">
+              <img src="/images/ship.png" class="allies-item__icon">
+              <span><b>[polygon]</b> helped <b>[PLAYER]</b> remove <b>5</b> bags</span>
+            </div>
+            <div class="allies-item">
+              <img src="/images/ship.png" class="allies-item__icon">
+              <span><b>[polygon]</b> helped <b>[PLAYER]</b> remove <b>5</b> bags</span>
+            </div>
+            <div class="allies-item">
+              <img src="/images/ship.png" class="allies-item__icon">
+              <span><b>[polygon]</b> helped <b>[PLAYER]</b> remove <b>5</b> bags</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Impact -->
+        <div class="md-block">
+          <div class="game-card__title box-3">Real Impact</div>
+          <div class="real-impact box-3">
+            <img src="/images/impact_image.png" class="real-impact__image">
+            <div class="real-impact__content">
+              <p>partner:</p>
+              <p>ocean voyages institute</p>
+              <p style="margin-top: 1rem;">impact guaranteed!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unity Loader -->
+  <script src="/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.loader.js"></script>
+  <script>
+    // Game state
+    let gameState = { score: 0, level: 1, bags: 0, soundOn: true };
+    let unityInstance = null;
+
+    // Unity message handler
+    window.OnWebMessage = function(data) {
+      try {
+        const parsed = JSON.parse(data);
+        if (parsed.currentScore !== undefined) gameState.score = parsed.currentScore;
+        if (parsed.currentLevel !== undefined) gameState.level = parsed.currentLevel;
+        if (parsed.currentBags !== undefined) gameState.bags = parsed.currentBags;
+        updateUI();
+      } catch (e) {
+        console.log('Unity message:', data);
+      }
+    };
+
+    function updateUI() {
+      document.getElementById('score').textContent = gameState.score.toLocaleString();
+      document.getElementById('score-top').textContent = gameState.score.toLocaleString();
+      document.getElementById('level').textContent = gameState.level;
+      document.getElementById('level-top').textContent = gameState.level;
+      document.getElementById('bags-count').textContent = gameState.bags;
+      document.getElementById('ocean-bags').textContent = gameState.bags;
+      document.getElementById('ocean-bags-top').textContent = gameState.bags;
+      document.getElementById('plastic-progress').style.width = Math.min(gameState.bags, 100) + '%';
+    }
+
+    // Load Unity
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      dataUrl: "/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.data.unityweb",
+      frameworkUrl: "/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.framework.js.unityweb",
+      codeUrl: "/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "Dollar Donation Club",
+      productName: "ImpactMan",
+      productVersion: "1.0",
+    }).then(instance => {
+      unityInstance = instance;
+      document.getElementById('loading').style.display = 'none';
+    }).catch(err => {
+      console.error('Unity load error:', err);
+      document.getElementById('loading').innerHTML = '<p style="color:white;">Error loading game</p>';
+    });
+
+    // Sound toggle
+    document.getElementById('sound-toggle').addEventListener('click', function() {
+      gameState.soundOn = !gameState.soundOn;
+      document.getElementById('sound-label').textContent = gameState.soundOn ? 'SOUND ON' : 'SOUND OFF';
+      document.getElementById('sound-icon').src = gameState.soundOn ? '/images/sound/on.png' : '/images/sound/off.png';
+      if (unityInstance) {
+        unityInstance.SendMessage('GameManager', 'OnWebMessage', JSON.stringify({
+          Action: gameState.soundOn ? 'unmuteGame' : 'muteGame'
+        }));
+      }
+    });
+  </script>
+</body>
+</html>
