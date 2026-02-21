@@ -210,8 +210,8 @@
     </div>
   </div>
 
-  <!-- Unity Loader -->
-  <script src="/impactman/Build/impactman.loader.js"></script>
+  <!-- Unity Loader - Pi/ARM compatible build -->
+  <script src="/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.loader.js"></script>
   <script>
     // Game state
     var gameState = {
@@ -251,11 +251,11 @@
       document.getElementById('progress-bar').style.width = Math.min(gameState.bags, 100) + '%';
     }
 
-    // Initialize Unity
+    // Initialize Unity - Using Pi/ARM compatible build
     createUnityInstance(document.querySelector("#unity-canvas"), {
-      dataUrl: "/impactman/Build/impactman.data",
-      frameworkUrl: "/impactman/Build/impactman.framework.js",
-      codeUrl: "/impactman/Build/impactman.wasm",
+      dataUrl: "/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.data.unityweb",
+      frameworkUrl: "/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.framework.js.unityweb",
+      codeUrl: "/unity/ImpacBuilds/Build2/impactman-pi/Build/impactman-pi.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "Dollar Donation Club",
       productName: "ImpactMan",
