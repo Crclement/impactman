@@ -1,0 +1,15 @@
+# Unity generated
+Library/
+Temp/
+Obj/
+Build/
+Logs/
+MemoryCaptures/
+*.csproj
+*.sln
+*.userprefs
+*.pidb
+*.booproj
+
+# Keep build output for deployment
+!ImpacBuilds/
