@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Login from './components/Login'
 import FleetMonitoring from './components/FleetMonitoring'
 import GameEmbed from './components/GameEmbed'
+import GamePage from './components/GamePage'
 import WiringSchematics from './components/WiringSchematics'
 import SetupGuide from './components/SetupGuide'
 import './App.css'
@@ -54,6 +55,7 @@ function App() {
 
   const tabs = [
     { id: 'monitoring', label: 'Fleet Monitoring' },
+    { id: 'arcade', label: 'Arcade' },
     { id: 'play', label: 'Play Game' },
     { id: 'wiring', label: 'Wiring Schematics' },
     { id: 'setup', label: 'Setup Guide' },
@@ -81,6 +83,7 @@ function App() {
 
       <main className="tab-content">
         {activeTab === 'monitoring' && <FleetMonitoring />}
+        {activeTab === 'arcade' && <GamePage consoleId={selectedConsole?.id} />}
         {activeTab === 'play' && (
           <div className="game-tab">
             <div className="card full-width">
